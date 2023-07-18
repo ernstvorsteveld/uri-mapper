@@ -1,0 +1,9 @@
+= URI Controller, Validator and Mapper
+
+[source,bash]
+---
+GET http://localhost:8080/actuator/app-info
+
+curl http://localhost:8080/uri -d "@data.json" -H "content-type: application/json"
+
+---
