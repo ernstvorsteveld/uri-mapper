@@ -3,6 +3,7 @@ package com.sternitc.urimapper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.net.URL;
 
@@ -11,8 +12,10 @@ public class UrlValidator implements ConstraintValidator<ValidUrl, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (!StringUtils.hasText(value)) {
+            return true;
+        }
         try {
-            System.out.println("About to validate: " + value);
             new URL(value);
             return true;
         } catch (Exception e) {
