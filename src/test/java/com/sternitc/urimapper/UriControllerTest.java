@@ -51,10 +51,31 @@ public class UriControllerTest {
     }
 
     @Test
+    public void should_allow_url_null_value_in_mono() {
+        var name = "Test";
+        this.webClient.post().uri("/uri/mono").
+                body(BodyInserters.fromObject(
+                        new UriContainer(name, null)))
+                .exchange()
+                .expectStatus().isOk();
+    }
+
+    @Test
     public void should_return_with_url_incorrect() {
         var name = "Test";
         var url = "noway://www.google.com";
         this.webClient.post().uri("/uri").
+                body(BodyInserters.fromObject(
+                        new UriContainer(name, url)))
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
+    public void should_return_with_url_incorrect_in_mono() {
+        var name = "Test";
+        var url = "noway://www.google.com";
+        this.webClient.post().uri("/uri/mono").
                 body(BodyInserters.fromObject(
                         new UriContainer(name, url)))
                 .exchange()

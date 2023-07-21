@@ -23,4 +23,9 @@ public class UriController {
         return Mono.just(container);
     }
 
+    @PostMapping("/mono")
+    Mono<UriContainer> post(@Valid @RequestBody Mono<UriContainer> container) {
+        container.map(u -> UriContainerMapper.INSTANCE.toDomain(u));
+        return container;
+    }
 }
